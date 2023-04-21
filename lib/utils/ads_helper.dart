@@ -15,15 +15,17 @@ class AdsHelper {
         onAdLoaded: (ad) {
           nativeAd=ad as NativeAd;
         },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
+        onAdFailedToLoad: (ad, error) {},
       ),
       request: AdRequest(),
     );
 
     nativeAd!.load();
   }
+
+
+
+
 
   AppOpenAd? appOpenAd;
 
