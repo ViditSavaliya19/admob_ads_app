@@ -17,9 +17,10 @@ class _FbAdsScreenState extends State<FbAdsScreen> {
     FbAdsHelper.fbAdsHelper.initFacebookAds();
     FbAdsHelper.fbAdsHelper.loadFbBannerAds();
     FbAdsHelper.fbAdsHelper.loadFbInterAds();
-    FbAdsHelper.fbAdsHelper.loadFbRewardAds();
+    // FbAdsHelper.fbAdsHelper.loadFbRewardAds();
+    FbAdsHelper.fbAdsHelper.loadRewardedVideoAd();
+    FbAdsHelper.fbAdsHelper.nativeBannerAd();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +30,34 @@ class _FbAdsScreenState extends State<FbAdsScreen> {
           title: const Text("Fb Ads"),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Center(child: FbAdsHelper.fbAdsHelper.facebookBannerAd!,),
-            ElevatedButton(onPressed: (){
-              if(FbAdsHelper.fbAdsHelper.isInterstitialAdLoaded)
-              FacebookInterstitialAd.showInterstitialAd();
-            }, child: Text("InterAds")),
-            ElevatedButton(onPressed: (){
-              if(FbAdsHelper.fbAdsHelper.isRewardAdLoaded)
-              FacebookRewardedVideoAd.showRewardedVideoAd();
-            }, child: Text("RewardAds")),
+            Center(
+              child: FbAdsHelper.fbAdsHelper.facebookBannerAd!,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (FbAdsHelper.fbAdsHelper.isInterstitialAdLoaded) {
+                    FacebookInterstitialAd.showInterstitialAd();
+                  }
+                  FbAdsHelper.fbAdsHelper.loadFbInterAds();
+                },
+                child: Text("InterAds")),
+            Text(
+              "RewardAds Available Only For Gaming apps",
+              style: TextStyle(color: Colors.red),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (FbAdsHelper.fbAdsHelper.isRewardAdLoaded) {
+                    FacebookRewardedVideoAd.showRewardedVideoAd();
+                  }
+                  FbAdsHelper.fbAdsHelper.loadRewardedVideoAd();
+                },
+                child: Text("RewardAds")),
+            Center(
+              child: FbAdsHelper.fbAdsHelper.facebookNativeAd!,
+            ),
           ],
         ),
       ),
